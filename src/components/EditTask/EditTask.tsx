@@ -22,6 +22,7 @@ const EditTask: React.FunctionComponent<EditProps> = ({
     validationSchema: Yup.object({
       editTask: Yup.string()
         .required("Task cannot be empty.")
+        .min(2, "Too Short!")
         .max(50, "A task cannot exceed 50 characters."),
     }),
     onSubmit: (values) => {
@@ -33,7 +34,12 @@ const EditTask: React.FunctionComponent<EditProps> = ({
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <TextField label="edit task" {...formik.getFieldProps("editTask")} />
+      <TextField
+        label="edit task"
+        {...formik.getFieldProps("editTask")}
+        error={formik.touched.editTask && Boolean(formik.errors.editTask)}
+        helperText={formik.touched.editTask && formik.errors.editTask}
+      />
       <Button type="submit" variant="contained" color="primary">
         Save
       </Button>
