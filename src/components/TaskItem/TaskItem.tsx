@@ -6,22 +6,27 @@ import { toDoTask } from "../../Task/task";
 
 interface ItemProps {
   task: toDoTask;
-  // onToggleComplete: (taskId: string) => void;
-  // onDelete: (taskId: string) => void;
-  // onEdit: (taskId: string) => void;
+  onEdit: (taskId: string) => void;
+  //   onToggleComplete: (taskId: string) => void;
+  //   onDelete: (taskId: string) => void;
 }
 
-const TaskItems: React.FunctionComponent<ItemProps> = ({ task }) => {
+const TaskItems: React.FunctionComponent<ItemProps> = ({ task, onEdit }) => {
+  const handleEditClick = () => {
+    onEdit(task.id);
+  };
   return (
     <ListItem>
-      <Checkbox />
-      <ListItemText id={task.id} primary={task.text} />
-      <IconButton>
-        <DeleteIcon />
-      </IconButton>
-      <IconButton>
-        <EditIcon />
-      </IconButton>
+      <>
+        <Checkbox />
+        <ListItemText id={task.id} primary={task.text} />
+        <IconButton onClick={handleEditClick}>
+          <EditIcon />
+        </IconButton>
+        <IconButton>
+          <DeleteIcon />
+        </IconButton>
+      </>
     </ListItem>
   );
 };
