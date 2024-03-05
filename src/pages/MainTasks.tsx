@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { toDoTask } from "../Task/task";
 import AddTaskForm from "../components/AddTaskForm/AddTask";
 import { saveTasks, laodTasks } from "../utils/localStorage";
+import TodoList from "../components/TodoList/TodoList";
 
 const MainTasks: React.FunctionComponent = () => {
   const [tasks, setTasks] = useState<toDoTask[]>(laodTasks());
@@ -20,6 +21,7 @@ const MainTasks: React.FunctionComponent = () => {
     <>
       <h1>My Todo List</h1>
       <AddTaskForm onAddTask={handleAddTask} />
+      <TodoList tasks={tasks} />
     </>
   );
 };
