@@ -1,6 +1,6 @@
 # A todo app 
 
-## The project is build using React, TypeScript and Material ui for styling
+## The project is build using React, TypeScript and Material ui.
 
 ### Project requirements.
 - you need to have Node installed and this project was build on Node 18.19.1.
