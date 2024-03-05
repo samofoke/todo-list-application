@@ -1,5 +1,11 @@
 import React from "react";
-import { Checkbox, ListItem, ListItemText, IconButton } from "@mui/material";
+import {
+  Checkbox,
+  ListItem,
+  ListItemText,
+  IconButton,
+  Paper,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { toDoTask } from "../../Task/task";
@@ -30,22 +36,27 @@ const TaskItems: React.FunctionComponent<ItemProps> = ({
   };
 
   return (
-    <ListItem>
-      <>
-        <Checkbox checked={task.completed} onChange={handleToggle} />
-        <ListItemText
-          id={task.id}
-          primary={task.text}
-          sx={{ textDecoration: task.completed ? "line-through" : "none" }}
-        />
-        <IconButton onClick={handleEditClick}>
-          <EditIcon />
-        </IconButton>
-        <IconButton onClick={handleDelete}>
-          <DeleteIcon />
-        </IconButton>
-      </>
-    </ListItem>
+    <Paper elevation={3} sx={{ mb: 2, p: 2, borderRadius: "10px" }}>
+      <ListItem>
+        <>
+          <Checkbox checked={task.completed} onChange={handleToggle} />
+          <ListItemText
+            id={task.id}
+            primary={task.text}
+            sx={{
+              textDecoration: task.completed ? "line-through" : "none",
+              marginRight: "20px",
+            }}
+          />
+          <IconButton onClick={handleEditClick}>
+            <EditIcon />
+          </IconButton>
+          <IconButton onClick={handleDelete}>
+            <DeleteIcon />
+          </IconButton>
+        </>
+      </ListItem>
+    </Paper>
   );
 };
 

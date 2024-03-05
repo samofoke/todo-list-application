@@ -1,6 +1,6 @@
 import React from "react";
 import { toDoTask } from "../../Task/task";
-import { List } from "@mui/material";
+import { List, Grid, Container } from "@mui/material";
 import TaskItems from "../TaskItem/TaskItem";
 
 interface ListItemProps {
@@ -17,17 +17,23 @@ const TodoList: React.FunctionComponent<ListItemProps> = ({
   onDelete,
 }) => {
   return (
-    <List>
-      {tasks.map((task) => (
-        <TaskItems
-          key={task.id}
-          task={task}
-          onEdit={onEdit}
-          onToggleComplete={onToggleComplete}
-          onDelete={onDelete}
-        />
-      ))}
-    </List>
+    <Container maxWidth="sm" sx={{ marginTop: "50px" }}>
+      <Grid container justifyContent="center">
+        <Grid item>
+          <List>
+            {tasks.map((task) => (
+              <TaskItems
+                key={task.id}
+                task={task}
+                onEdit={onEdit}
+                onToggleComplete={onToggleComplete}
+                onDelete={onDelete}
+              />
+            ))}
+          </List>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toDoTask } from "../Task/task";
-import { Dialog } from "@mui/material";
+import { Dialog, Typography, Container, DialogContent } from "@mui/material";
 import AddTaskForm from "../components/AddTaskForm/AddTask";
 import { saveTasks, laodTasks } from "../utils/localStorage";
 import TodoList from "../components/TodoList/TodoList";
@@ -12,7 +12,6 @@ const MainTasks: React.FunctionComponent = () => {
   const [isOpen, setOpen] = useState(false);
 
   const handleAddTask = (newTask: toDoTask) => {
-    console.log("new: ", newTask);
     setTasks((prevTasks) => {
       const updatedTasks = [...prevTasks, newTask];
       saveTasks(updatedTasks);
@@ -42,7 +41,6 @@ const MainTasks: React.FunctionComponent = () => {
     const updateTogle = tasks.map((task) =>
       task.id === taskId ? { ...task, completed: !task.completed } : task
     );
-    console.log("update: ", updateTogle);
     setTasks(updateTogle);
     saveTasks(updateTogle);
   };
@@ -57,8 +55,13 @@ const MainTasks: React.FunctionComponent = () => {
   }, [tasks]);
 
   return (
-    <>
-      <h1>My Todo List</h1>
+    <Container maxWidth="md" sx={{ marginTop: "60px" }}>
+      <Typography
+        variant="h3"
+        sx={{ textAlign: "center", marginBottom: "20px" }}
+      >
+        My Todo List
+      </Typography>
       <AddTaskForm onAddTask={handleAddTask} />
       <TodoList
         tasks={tasks}
@@ -66,22 +69,24 @@ const MainTasks: React.FunctionComponent = () => {
         onToggleComplete={handleToggleComplete}
         onDelete={handleDelete}
       />
-      <Dialog open={isOpen} onClose={handleClose}>
-        {editTask && (
-          <EditTask
-            task={
-              tasks.find((task) => task.id === editTask) || {
-                id: "",
-                text: "",
-                completed: false,
+      <Dialog open={isOpen} onClose={handleClose} maxWidth="md">
+        <DialogContent sx={{ minWidth: "400px" }}>
+          {editTask && (
+            <EditTask
+              task={
+                tasks.find((task) => task.id === editTask) || {
+                  id: "",
+                  text: "",
+                  completed: false,
+                }
               }
-            }
-            onSave={handleSave}
-            onClose={handleClose}
-          />
-        )}
+              onSave={handleSave}
+              onClose={handleClose}
+            />
+          )}
+        </DialogContent>
       </Dialog>
-    </>
+    </Container>
   );
 };
 

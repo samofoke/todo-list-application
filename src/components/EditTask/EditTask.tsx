@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Container, Box, Grid } from "@mui/material";
 import { toDoTask } from "../../Task/task";
 
 interface EditProps {
@@ -33,17 +33,30 @@ const EditTask: React.FunctionComponent<EditProps> = ({
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <TextField
-        label="edit task"
-        {...formik.getFieldProps("editTask")}
-        error={formik.touched.editTask && Boolean(formik.errors.editTask)}
-        helperText={formik.touched.editTask && formik.errors.editTask}
-      />
-      <Button type="submit" variant="contained" color="primary">
-        Save
-      </Button>
-    </form>
+    <Container maxWidth="sm">
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <form onSubmit={formik.handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={10}>
+              <TextField
+                fullWidth
+                label="edit task"
+                {...formik.getFieldProps("editTask")}
+                error={
+                  formik.touched.editTask && Boolean(formik.errors.editTask)
+                }
+                helperText={formik.touched.editTask && formik.errors.editTask}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <Button type="submit" variant="contained" color="primary">
+                Save
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Box>
+    </Container>
   );
 };
 
