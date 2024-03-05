@@ -2,7 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { v4 as uuidv4 } from "uuid";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Container, Box, Stack } from "@mui/material";
 import { toDoTask } from "../../Task/task";
 
 interface AddTaskProps {
@@ -32,19 +32,24 @@ const AddTaskForm: React.FunctionComponent<AddTaskProps> = ({ onAddTask }) => {
   });
 
   return (
-    <>
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          label="Add Task"
-          {...formik.getFieldProps("task")}
-          error={formik.touched.task && Boolean(formik.errors.task)}
-          helperText={formik.touched.task && formik.errors.task}
-        />
-        <Button type="submit" variant="contained" color="primary">
-          Add
-        </Button>
-      </form>
-    </>
+    <Container maxWidth="md">
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <form onSubmit={formik.handleSubmit}>
+          <Stack direction="column" spacing={2}>
+            <TextField
+              sx={{ marginRight: "30px" }}
+              label="Add Task"
+              {...formik.getFieldProps("task")}
+              error={formik.touched.task && Boolean(formik.errors.task)}
+              helperText={formik.touched.task && formik.errors.task}
+            />
+            <Button type="submit" variant="contained" color="primary">
+              Add
+            </Button>
+          </Stack>
+        </form>
+      </Box>
+    </Container>
   );
 };
 

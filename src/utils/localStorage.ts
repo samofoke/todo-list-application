@@ -3,7 +3,11 @@ import { toDoTask } from "../Task/task";
 const local_key = "tasks";
 
 const saveTasks = (tasks: toDoTask[]): void => {
-  localStorage.setItem(local_key, JSON.stringify(tasks));
+  try {
+    localStorage.setItem(local_key, JSON.stringify(tasks));
+  } catch (error) {
+    console.error("Error saving tasks to localStorage: ", error);
+  }
 };
 
 const laodTasks = (): toDoTask[] => {
