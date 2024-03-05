@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Checkbox, ListItem, ListItemText, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -6,22 +6,45 @@ import { toDoTask } from "../../Task/task";
 
 interface ItemProps {
   task: toDoTask;
-  // onToggleComplete: (taskId: string) => void;
-  // onDelete: (taskId: string) => void;
-  // onEdit: (taskId: string) => void;
+  onEdit: (taskId: string) => void;
+  onToggleComplete: (taskId: string) => void;
+  onDelete: (taskId: string) => void;
 }
 
-const TaskItems: React.FunctionComponent<ItemProps> = ({ task }) => {
+const TaskItems: React.FunctionComponent<ItemProps> = ({
+  task,
+  onEdit,
+  onToggleComplete,
+  onDelete,
+}) => {
+  const handleEditClick = () => {
+    onEdit(task.id);
+  };
+
+  const handleToggle = () => {
+    onToggleComplete(task.id);
+  };
+
+  const handleDelete = () => {
+    onDelete(task.id);
+  };
+
   return (
     <ListItem>
-      <Checkbox />
-      <ListItemText id={task.id} primary={task.text} />
-      <IconButton>
-        <DeleteIcon />
-      </IconButton>
-      <IconButton>
-        <EditIcon />
-      </IconButton>
+      <>
+        <Checkbox checked={task.completed} onChange={handleToggle} />
+        <ListItemText
+          id={task.id}
+          primary={task.text}
+          sx={{ textDecoration: task.completed ? "line-through" : "none" }}
+        />
+        <IconButton onClick={handleEditClick}>
+          <EditIcon />
+        </IconButton>
+        <IconButton onClick={handleDelete}>
+          <DeleteIcon />
+        </IconButton>
+      </>
     </ListItem>
   );
 };

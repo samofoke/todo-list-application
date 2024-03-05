@@ -17,6 +17,7 @@ const AddTaskForm: React.FunctionComponent<AddTaskProps> = ({ onAddTask }) => {
     validationSchema: Yup.object({
       task: Yup.string()
         .required("Task Cannot be empty.")
+        .min(2, "Too Short!")
         .max(50, "A task cannot exceed 50 characters."),
     }),
     onSubmit: (values) => {
@@ -33,7 +34,12 @@ const AddTaskForm: React.FunctionComponent<AddTaskProps> = ({ onAddTask }) => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <TextField label="Add Task" {...formik.getFieldProps("task")} />
+        <TextField
+          label="Add Task"
+          {...formik.getFieldProps("task")}
+          error={formik.touched.task && Boolean(formik.errors.task)}
+          helperText={formik.touched.task && formik.errors.task}
+        />
         <Button type="submit" variant="contained" color="primary">
           Add
         </Button>

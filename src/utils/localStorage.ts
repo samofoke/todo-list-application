@@ -7,8 +7,15 @@ const saveTasks = (tasks: toDoTask[]): void => {
 };
 
 const laodTasks = (): toDoTask[] => {
-  const storedTasks = localStorage.getItem(local_key);
-  return storedTasks ? JSON.parse(storedTasks) : [];
+  try {
+    const storedTasks = localStorage.getItem(local_key);
+    if (storedTasks) {
+      return JSON.parse(storedTasks);
+    }
+  } catch (error) {
+    console.error("Error loading tasks: ", error);
+  }
+  return [];
 };
 
 export { saveTasks, laodTasks };
