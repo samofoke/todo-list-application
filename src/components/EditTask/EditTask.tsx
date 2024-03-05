@@ -15,11 +15,15 @@ const EditTask: React.FunctionComponent<EditProps> = ({
   onClose,
   onSave,
 }) => {
-  const [editText, setEditText] = useState(task.text);
+  const [editText] = useState(task.text);
 
   const formik = useFormik({
     initialValues: { editTask: editText },
-    // validationSchema: Yup.object({})
+    validationSchema: Yup.object({
+      editTask: Yup.string()
+        .required("Task cannot be empty.")
+        .max(50, "A task cannot exceed 50 characters."),
+    }),
     onSubmit: (values) => {
       const updatedTask = { ...task, text: values.editTask };
       onSave(updatedTask);

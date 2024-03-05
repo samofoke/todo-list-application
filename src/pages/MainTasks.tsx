@@ -26,11 +26,9 @@ const MainTasks: React.FunctionComponent = () => {
   };
 
   const handleSave = (updatedTask: toDoTask) => {
-    console.log("trigger: ", updatedTask);
     const updatedTaks = tasks.map((task) =>
       task.id === updatedTask.id ? updatedTask : task
     );
-    console.log("new: ", updatedTask);
     setTasks(updatedTaks);
     saveTasks(updatedTaks);
     setOpen(false);
@@ -38,6 +36,20 @@ const MainTasks: React.FunctionComponent = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleToggleComplete = (taskId: string) => {
+    const updateTogle = tasks.map((task) =>
+      task.id === taskId ? { ...task, completed: !task.completed } : task
+    );
+    console.log("update: ", updateTogle);
+    setTasks(updateTogle);
+    saveTasks(updateTogle);
+  };
+
+  const handleDelete = (taskId: string) => {
+    setTasks(tasks.filter((task) => task.id !== taskId));
+    saveTasks(tasks.filter((task) => task.id !== taskId));
   };
 
   useEffect(() => {
@@ -48,7 +60,12 @@ const MainTasks: React.FunctionComponent = () => {
     <>
       <h1>My Todo List</h1>
       <AddTaskForm onAddTask={handleAddTask} />
-      <TodoList tasks={tasks} onEdit={handleEdit} />
+      <TodoList
+        tasks={tasks}
+        onEdit={handleEdit}
+        onToggleComplete={handleToggleComplete}
+        onDelete={handleDelete}
+      />
       <Dialog open={isOpen} onClose={handleClose}>
         {editTask && (
           <EditTask
